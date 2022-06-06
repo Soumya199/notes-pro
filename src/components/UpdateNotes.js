@@ -1,21 +1,21 @@
-import React, { useContext,useState } from "react";
-import noteContext from "../context/notes/NoteContext";
+import React,{useContext,useState} from 'react'
+import noteContext from '../context/notes/NoteContext';
 
-export default function AddNotes(props) {
-  const context = useContext(noteContext);
-  const { addNotes } = context;
-  const [note, setnote] = useState({title:"",description:"",tag:""})
+export default function UpdateNotes(prop) {
+const context = useContext(noteContext);
+  const { editNote } = context;
+  const [note, setnote] = useState({id:"",title:"",description:"",tag:""})
   
   const handleOnclick = () => {
-   addNotes(note.title,note.description,note.tag)
+    editNote(note.id,note.title,note.description,note.tag)
   };
 
   const onChange = (e) => {
-   setnote({...note,[e.target.id]:e.target.value})
+   setnote({name:''})
   };
   return (
     <div className="container" style={{ marginTop: "10px" }}>
-      <h1>{props.title}</h1>
+      <h1>Update Notes</h1>
       <div className="mb-3">
         <label htmlFor="exampleFormControlInput1"  className="form-label">
           Note Title
@@ -24,6 +24,8 @@ export default function AddNotes(props) {
           type="text"
           className="form-control"
           id="title"
+          name='name'
+          defaultValue={prop?prop.noteToUpdate.title:""}
           placeholder="Title goes here"
           onChange={onChange}
         />
@@ -49,8 +51,8 @@ export default function AddNotes(props) {
           placeholder="Title goes here"
           onChange={onChange}
         />
-        <button className="btn btn-success my-2" onClick={handleOnclick}>{props.operation}</button>
+        <button className="btn btn-success my-2" onClick={handleOnclick}>UpateNotes</button>
       </div>
     </div>
-  );
+  )
 }
