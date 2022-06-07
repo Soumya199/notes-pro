@@ -12,8 +12,8 @@ export default function Login() {
             method: "POST", // *GET, POST, PUT, DELETE, etc.
             headers: {
                 "Content-Type": "application/json",
-                "auth-token":
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjI5Y2MxNzk0YzJiNzdkYzU5YzgxYzY4In0sImlhdCI6MTY1NDU3Nzk3MH0.0xQg69iQ2ttp-F5GpDoNf2mAd3GmhiXr-Xbuhosqzls",
+                "auth-token":localStorage.getItem("token")
+                
             },
             body:JSON.stringify({email:credential.email,password:credential.password})
         });
@@ -21,7 +21,7 @@ export default function Login() {
         console.log(typeof json,json)
         if(json.success){
            // Save the auth token in localstorage and redirect
-           localStorage.setItem("token",json.authtoken);
+           localStorage.setItem("token",json.authToken);
            console.log("Success")
            return navigate("/")
            

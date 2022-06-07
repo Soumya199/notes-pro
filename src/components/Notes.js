@@ -14,15 +14,22 @@ function Notes() {
 
   const [note, setNote] = useState({ id: "", title: "", description: "", tag: "" })
   useEffect(() => {
-  
+     if(localStorage.getItem("token")){
       getNotes();
+     }
+      
+     return ()=>{
+      <Navigate to="/login"/>
 
-
+     } 
     // eslint-disable-next-line
   }, []);
 
+  
+  
+
   if(!localStorage.getItem("token")){
-    return <Navigate to="/login"/>
+    
   }
 
   const updateNote = (currentnote) => {
