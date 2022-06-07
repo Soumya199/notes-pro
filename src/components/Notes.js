@@ -16,12 +16,8 @@ function Notes() {
   useEffect(() => {
      if(localStorage.getItem("token")){
       getNotes();
+      console.log("gg")
      }
-      
-     return ()=>{
-      <Navigate to="/login"/>
-
-     } 
     // eslint-disable-next-line
   }, []);
 
@@ -29,7 +25,7 @@ function Notes() {
   
 
   if(!localStorage.getItem("token")){
-    
+    return <Navigate to="/login"/>
   }
 
   const updateNote = (currentnote) => {
