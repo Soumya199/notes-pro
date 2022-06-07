@@ -12,16 +12,17 @@ function App() {
 
   return (
     <NoteState>
-    <Router>
-      <Navbar />
-      <Alert/>
-      <Routes>
-        <Route path="/" element={<Home/>}></Route>
-        <Route path="/about" element={<About/>}></Route>
-        <Route path="/login" element={<Login/>}></Route>
-        <Route path="/signup" element={<SignUp/>}></Route>
-      </Routes>
-    </Router>
+      <Router>
+        <Navbar />
+        <Alert />
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/about" element={<About />}></Route>
+        </Routes>
+
+      </Router>
     </NoteState>
   );
 }

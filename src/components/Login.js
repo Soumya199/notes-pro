@@ -1,8 +1,10 @@
 import React,{useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const [credential, setCredential] = useState({email:"",password:""})
     const host = "http://localhost:4000/api/";
+    const navigate=useNavigate();
     const handleSubmit = async (e) => {
         console.log("credential",credential)
         e.preventDefault();
@@ -16,10 +18,22 @@ export default function Login() {
             body:JSON.stringify({email:credential.email,password:credential.password})
         });
         const json=await response.json()
-        console.log(json)
+        console.log(typeof json,json)
+        if(json.success){
+           // Save the auth token in localstorage and redirect
+           localStorage.setItem("token",json.authtoken);
+           console.log("Success")
+           return navigate("/")
+           
+        }
+        else{
+            alert("Enter Valid Credential")
+        }
 
     }
     const onChange=(e)=>{
+        console.log(credential,"spread checking")
+        console.log(e.target.id,e.target.value,"gh")
      setCredential({...credential,[e.target.id]:e.target.value})
     }
     return (

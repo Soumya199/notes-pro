@@ -2,17 +2,28 @@ import NotesItem from "./NotesItem";
 import noteContext from "../context/notes/NoteContext";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import AddNotes from "./AddNotes";
+import { Navigate } from "react-router-dom";
 
 function Notes() {
   const context = useContext(noteContext);
-  const { notes, getNotes,editNote } = context;
+  const { notes, getNotes, editNote } = context;
   const ref = useRef();
   const refClose = useRef();
+
+  
+
   const [note, setNote] = useState({ id: "", title: "", description: "", tag: "" })
   useEffect(() => {
-    getNotes();
+  
+      getNotes();
+
+
     // eslint-disable-next-line
   }, []);
+
+  if(!localStorage.getItem("token")){
+    return <Navigate to="/login"/>
+  }
 
   const updateNote = (currentnote) => {
     setNote({ id: currentnote._id, title: currentnote.title, description: currentnote.description, tag: currentnote.tag })
@@ -23,10 +34,10 @@ function Notes() {
     setNote({ ...note, [e.target.id]: e.target.value })
   }
 
-  const saveChanges=()=>{
-   console.log("updating the note",note)
-   editNote(note.id,note.title,note.description,note.tag)
-   refClose.current.click();
+  const saveChanges = () => {
+    console.log("updating the note", note)
+    editNote(note.id, note.title, note.description, note.tag)
+    refClose.current.click();
 
   }
 
@@ -103,14 +114,14 @@ function Notes() {
               {/* udate Notes */}
               <div className="modal-footer">
                 <button type="button" className="btn btn-secondary" ref={refClose} data-bs-dismiss="modal">Close</button>
-                <button type="button" className="btn btn-primary"  onClick={saveChanges}>Save changes</button>
+                <button type="button" className="btn btn-primary" onClick={saveChanges}>Save changes</button>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div className="row mx-2">
-        {notes.length===0?"No notes to Display":notes.map((res) => {
+        {notes.length === 0 ? "No notes to Display" : notes.map((res) => {
           return (
             <NotesItem
               key={res._id}
