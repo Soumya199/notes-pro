@@ -15,12 +15,13 @@ export default function AddNotes(props) {
   };
   return (
     <div className="container" style={{ marginTop: "10px" }}>
-      <h1>{props.title}</h1>
+      <h1>Add Notes</h1>
       <div className="mb-3">
         <label htmlFor="exampleFormControlInput1"  className="form-label">
           Note Title
         </label>
         <input
+          required
           type="text"
           className="form-control"
           id="title"
@@ -49,7 +50,7 @@ export default function AddNotes(props) {
           placeholder="Title goes here"
           onChange={onChange}
         />
-        <button className="btn btn-success my-2" onClick={handleOnclick}>{props.operation}</button>
+        <button className="btn btn-success my-2" disabled={note.title.length < 5 || note.description.length < 5} onClick={handleOnclick}>Save Note</button>
       </div>
     </div>
   );

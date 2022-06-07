@@ -90,17 +90,23 @@ const NoteState = (props) => {
       }), // body data type must match "Content-Type" header
     });
     const res = await response.json();
-    console.log(res);
+    console.log(res)
 
     //logic to edit in client
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
+    let newNotes=JSON.parse(JSON.stringify(notes));
+    console.log("new",newNotes)
+    for (let index = 0; index < newNotes.length; index++) {
+      const element = newNotes[index];
       if (element._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        console.log("going in")
+        newNotes[index].title =title;
+        newNotes[index].description =description;
+        newNotes[index].tag =tag;
+        break;
       }
     }
+    console.log("updated notes",newNotes);
+    setNotes(newNotes);
   };
 
   return (
